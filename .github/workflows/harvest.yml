@@ -1,0 +1,81 @@
+name: harvest
+
+# Once a day, fill the set from ScreenScraper with tools/harvest.py, commit what it found and
+# publish it. Each run spends today's share of the account's quota and stops; the next one carries
+# on from there, so the whole set is built over as many days as it needs.
+#
+# Credentials are repository secrets, never in the code:
+#   SS_DEVID, SS_DEVPASSWORD   the developer account (required)
+#   SS_SSID, SS_SSPASSWORD     a ScreenScraper user account, which carries the daily quota
+on:
+  schedule:
+    - cron: '41 6 * * *'
+  workflow_dispatch:
+    inputs:
+      systems:
+        description: Card folders to harvest, comma separated
+        default: WS,Lynx,GG,NGP,TG16
+      limit:
+        description: Stop after this many api calls (blank for today's share of the quota)
+        default: ''
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: harvest
+  cancel-in-progress: false
+
+jobs:
+  harvest:
+    # Only this repository holds the secrets, so a fork of it doesn't try to.
+    if: github.repository == 'nelynes/slotPlus-art'
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - run: python -m pip install --quiet Pillow
+
+      - name: Test the harvester
+        run: python -m unittest discover tools
+
+      - name: Harvest
+        env:
+          SS_DEVID: ${{ secrets.SS_DEVID }}
+          SS_DEVPASSWORD: ${{ secrets.SS_DEVPASSWORD }}
+          SS_SSID: ${{ secrets.SS_SSID }}
+          SS_SSPASSWORD: ${{ secrets.SS_SSPASSWORD }}
+          SYSTEMS: ${{ inputs.systems || 'WS,Lynx,GG,NGP,TG16' }}
+          LIMIT: ${{ inputs.limit }}
+        run: |
+          set -eu
+          python tools/harvest.py --systems "$SYSTEMS" ${LIMIT:+--limit "$LIMIT"}
+
+      - name: Commit what was found
+        id: commit
+        run: |
+          set -eu
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Nothing new."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          added=$(git diff --cached --name-only --diff-filter=A -- '*.png' | wc -l)
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
+            commit -q -m "Harvest from ScreenScraper: $added images"
+          git push
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      # A push made with this workflow's own token starts no other workflow, so publish by hand.
+      - name: Publish
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --ref main

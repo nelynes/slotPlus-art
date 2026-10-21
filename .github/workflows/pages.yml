@@ -33,6 +33,7 @@ jobs:
           set -eu
           mkdir _site
           cp index.json _site/
+          if [ -f screenscraper.json ]; then cp screenscraper.json _site/; fi
           for d in GBA GB GBC WS Lynx GG NGP TG16; do
             if [ -d "$d" ]; then cp -R "$d" _site/; fi
           done

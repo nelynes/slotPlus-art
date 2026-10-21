@@ -27,6 +27,19 @@ it, and `--crc` files it under a checksum directly. An image with transparency i
 logo, an opaque one as a whole label; `--logo` or `--label` overrides that. It needs Python 3 with
 Pillow.
 
+## From ScreenScraper
+
+Once a day the harvest workflow runs `tools/harvest.py`, which asks
+[ScreenScraper](https://www.screenscraper.fr/) for the label and logo of every dump libretro's
+No-Intro databases list for the WonderSwan, Lynx, Game Gear, NeoGeo Pocket and TurboGrafx-16. It
+spends a share of the day's quota, commits what it found and publishes the set; the next day's run
+carries on. Art already in the set is never replaced, and a dump ScreenScraper has nothing for is
+asked about again a month later. Scans are shrunk to 600 pixels on their longest side.
+
+It needs these repository secrets: `SS_DEVID` and `SS_DEVPASSWORD` (the developer account), and
+`SS_SSID` and `SS_SSPASSWORD` (a ScreenScraper user account, which carries the quota). The workflow
+can also be run by hand from the Actions tab, for chosen systems or a set number of calls.
+
 ## License
 
 The tools in this repository are GPL-3.0-or-later, as slotPlus is. See [LICENSE](LICENSE). The
@@ -34,7 +47,10 @@ licence covers the code, not the label art, which belongs to each game's publish
 
 ## Credits
 
-Labels and logos here were made or scanned by slotPlus's contributors. Game names and checksums
+Labels and logos here were made or scanned by slotPlus's contributors, except the files listed in
+`screenscraper.json`, which come from [ScreenScraper](https://www.screenscraper.fr/) under
+[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) and are shared under the same
+licence. Game names and checksums
 come from [libretro-database](https://github.com/libretro/libretro-database) (CC BY-SA 4.0).
 Game names, logos and label art belong to their publishers; they are here so players can label
 the carts of games they own. slotPlus is not affiliated with any of them.
