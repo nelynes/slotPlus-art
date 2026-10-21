@@ -1,0 +1,48 @@
+name: pages
+
+# The set is static: the platform folders and index.json, published as they are. Cart Studio+
+# fetches them from another origin, which GitHub Pages allows for every file.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: art
+    # Only this repository publishes the set, so a fork of it doesn't try to.
+    if: github.repository == 'nelynes/slotPlus-art'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: The set, without the tools
+        run: |
+          set -eu
+          mkdir _site
+          cp index.json _site/
+          for d in GBA GB GBC WS Lynx GG NGP TG16; do
+            if [ -d "$d" ]; then cp -R "$d" _site/; fi
+          done
+          python3 -c "import json; json.load(open('_site/index.json'))"
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deploy
+        uses: actions/deploy-pages@v4
