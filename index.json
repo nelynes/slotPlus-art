@@ -2,7 +2,13 @@
  "05E80ECC": {
   "support-texture": "GBA/support-texture/05E80ECC.png"
  },
+ "59CBE914": {
+  "support-texture": "GBA/support-texture/59CBE914.png"
+ },
  "8103428D": {
   "support-texture": "GBA/support-texture/8103428D.png"
+ },
+ "B51B710E": {
+  "support-texture": "GBA/support-texture/59CBE914.png"
  }
 }
