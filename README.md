@@ -27,6 +27,11 @@ it, and `--crc` files it under a checksum directly. An image with transparency i
 logo, an opaque one as a whole label; `--logo` or `--label` overrides that. It needs Python 3 with
 Pillow.
 
+## License
+
+The tools in this repository are GPL-3.0-or-later, as slotPlus is. See [LICENSE](LICENSE). The
+licence covers the code, not the label art, which belongs to each game's publisher.
+
 ## Credits
 
 Labels and logos here were made or scanned by slotPlus's contributors. Game names and checksums
