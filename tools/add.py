@@ -97,8 +97,9 @@ def main():
     folder = ROOT / a.platform / media
     folder.mkdir(parents=True, exist_ok=True)
     first = folder / f'{crcs[0]}.png'
-    # A logo keeps its transparency. A label is opaque, and saved as RGB, which is all a card needs.
-    (im.convert('RGBA') if media == 'wheel' else im.convert('RGB')).save(first, optimize=True)
+    # A logo keeps its transparency, and so does a label that has some. An opaque label is saved as
+    # RGB, which is all a card needs.
+    (im.convert('RGBA') if media == 'wheel' or see_through else im.convert('RGB')).save(first, optimize=True)
     for crc in crcs:
         # Every dump points at the one file, so a game with several dumps costs one image.
         index.setdefault(crc, {})[media] = first.relative_to(ROOT).as_posix()

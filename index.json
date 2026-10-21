@@ -1,27 +1,150 @@
 {
+ "006FD398": {
+  "support-texture": "Lynx/support-texture/006FD398.png"
+ },
+ "0120E41A": {
+  "support-texture": "GBC/support-texture/0120E41A.png"
+ },
  "05E80ECC": {
   "support-texture": "GBA/support-texture/05E80ECC.png"
+ },
+ "11F5FDED": {
+  "support-texture": "GB/support-texture/11F5FDED.png"
+ },
+ "159FF629": {
+  "support-texture": "GBA/support-texture/159FF629.png"
+ },
+ "15F3B94D": {
+  "support-texture": "GB/support-texture/15F3B94D.png"
+ },
+ "173AAD46": {
+  "support-texture": "GBA/support-texture/173AAD46.png"
+ },
+ "2FC91991": {
+  "support-texture": "GB/support-texture/2FC91991.png"
+ },
+ "30A866CD": {
+  "support-texture": "WS/support-texture/30A866CD.png"
+ },
+ "3BCD3422": {
+  "support-texture": "WS/support-texture/3BCD3422.png"
+ },
+ "3D400209": {
+  "support-texture": "GB/support-texture/3D400209.png"
+ },
+ "411B86DC": {
+  "support-texture": "WS/support-texture/411B86DC.png"
+ },
+ "4B3D4957": {
+  "support-texture": "GBA/support-texture/4B3D4957.png"
+ },
+ "51AB5AE6": {
+  "support-texture": "GBA/support-texture/51AB5AE6.png"
+ },
+ "56F4E554": {
+  "support-texture": "WS/support-texture/56F4E554.png"
  },
  "59CBE914": {
   "support-texture": "GBA/support-texture/59CBE914.png"
  },
+ "5B925FC9": {
+  "support-texture": "GBA/support-texture/5B925FC9.png"
+ },
+ "5C55B58C": {
+  "support-texture": "GBC/support-texture/5C55B58C.png"
+ },
+ "6B8C1FEB": {
+  "support-texture": "GB/support-texture/6B8C1FEB.png"
+ },
+ "73CA289A": {
+  "support-texture": "GBA/support-texture/73CA289A.png"
+ },
+ "74F83E6F": {
+  "support-texture": "GB/support-texture/74F83E6F.png"
+ },
  "8103428D": {
   "support-texture": "GBA/support-texture/8103428D.png"
+ },
+ "8526989D": {
+  "support-texture": "WS/support-texture/8526989D.png"
+ },
+ "8A3BC5A8": {
+  "support-texture": "GBA/support-texture/8A3BC5A8.png"
  },
  "8A850DA7": {
   "support-texture": "GBA/support-texture/05E80ECC.png"
  },
+ "8B3289AD": {
+  "support-texture": "GB/support-texture/8B3289AD.png"
+ },
+ "90AC7C6A": {
+  "support-texture": "GG/support-texture/90AC7C6A.png"
+ },
+ "913980AD": {
+  "support-texture": "GB/support-texture/913980AD.png"
+ },
+ "9511F737": {
+  "support-texture": "GB/support-texture/9511F737.png"
+ },
  "98FBBD9A": {
   "support-texture": "GBA/support-texture/59CBE914.png"
+ },
+ "99F27DAB": {
+  "support-texture": "GB/support-texture/99F27DAB.png"
+ },
+ "9E33EAA7": {
+  "support-texture": "GBC/support-texture/9E33EAA7.png"
+ },
+ "B1783AF2": {
+  "support-texture": "GBA/support-texture/B1783AF2.png"
  },
  "B51B710E": {
   "support-texture": "GBA/support-texture/59CBE914.png"
  },
+ "BAF7FFD2": {
+  "support-texture": "GBA/support-texture/BAF7FFD2.png"
+ },
+ "BD8CFEA7": {
+  "support-texture": "GBA/support-texture/BD8CFEA7.png"
+ },
+ "BF078889": {
+  "support-texture": "GBC/support-texture/BF078889.png"
+ },
+ "C18F82CB": {
+  "support-texture": "GBC/support-texture/C18F82CB.png"
+ },
+ "C4B8CF30": {
+  "support-texture": "GB/support-texture/C4B8CF30.png"
+ },
+ "C5CCD529": {
+  "support-texture": "GBA/support-texture/C5CCD529.png"
+ },
  "C97E574B": {
   "support-texture": "GBC/support-texture/C97E574B.png"
  },
+ "CE860480": {
+  "support-texture": "GBA/support-texture/CE860480.png"
+ },
+ "CFED97AF": {
+  "support-texture": "GBC/support-texture/CFED97AF.png"
+ },
  "D0266A15": {
   "support-texture": "GBC/support-texture/D0266A15.png"
+ },
+ "DA0224E3": {
+  "support-texture": "GB/support-texture/DA0224E3.png"
+ },
+ "EE82AD11": {
+  "support-texture": "GBC/support-texture/EE82AD11.png"
+ },
+ "F8DC27E6": {
+  "support-texture": "GB/support-texture/F8DC27E6.png"
+ },
+ "F8E0647B": {
+  "support-texture": "GBC/support-texture/F8E0647B.png"
+ },
+ "FBA55DD8": {
+  "support-texture": "GBA/support-texture/FBA55DD8.png"
  },
  "FC33D126": {
   "support-texture": "GBC/support-texture/FC33D126.png"
