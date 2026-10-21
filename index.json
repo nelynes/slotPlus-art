@@ -1,15 +1,51 @@
 {
+ "00137E86": {
+  "support-texture": "WS/support-texture/00137E86.png",
+  "wheel": "WS/wheel/00137E86.png"
+ },
  "006FD398": {
   "support-texture": "Lynx/support-texture/006FD398.png"
+ },
+ "00B31FBB": {
+  "support-texture": "WS/support-texture/00B31FBB.png",
+  "wheel": "WS/wheel/00B31FBB.png"
  },
  "0120E41A": {
   "support-texture": "GBC/support-texture/0120E41A.png"
  },
+ "04366D92": {
+  "support-texture": "WS/support-texture/04366D92.png",
+  "wheel": "WS/wheel/04366D92.png"
+ },
+ "04531734": {
+  "support-texture": "WS/support-texture/04531734.png",
+  "wheel": "WS/wheel/04531734.png"
+ },
  "05E80ECC": {
   "support-texture": "GBA/support-texture/05E80ECC.png"
  },
+ "07A3DD46": {
+  "support-texture": "WS/support-texture/07A3DD46.png",
+  "wheel": "WS/wheel/07A3DD46.png"
+ },
+ "0B0F8981": {
+  "support-texture": "WS/support-texture/0B0F8981.png",
+  "wheel": "WS/wheel/0B0F8981.png"
+ },
+ "0CB57376": {
+  "support-texture": "WS/support-texture/0CB57376.png",
+  "wheel": "WS/wheel/0CB57376.png"
+ },
+ "0D5171F0": {
+  "support-texture": "WS/support-texture/0D5171F0.png",
+  "wheel": "WS/wheel/0D5171F0.png"
+ },
  "11F5FDED": {
   "support-texture": "GB/support-texture/11F5FDED.png"
+ },
+ "1263DA65": {
+  "support-texture": "WS/support-texture/1263DA65.png",
+  "wheel": "WS/wheel/1263DA65.png"
  },
  "159FF629": {
   "support-texture": "GBA/support-texture/159FF629.png"
