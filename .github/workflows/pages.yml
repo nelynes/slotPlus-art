@@ -34,7 +34,7 @@ jobs:
           mkdir _site
           cp index.json _site/
           if [ -f screenscraper.json ]; then cp screenscraper.json _site/; fi
-          for d in GBA GB GBC WS Lynx GG NGP TG16; do
+          for d in GBA GB GBC WS Lynx GG NGP TG16 NDS; do
             if [ -d "$d" ]; then cp -R "$d" _site/; fi
           done
           python3 -c "import json; json.load(open('_site/index.json'))"

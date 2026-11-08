@@ -52,12 +52,13 @@ SYSTEMS = [
     ('NGP', 'SNK - Neo Geo Pocket', ['neogeopocket', 'ngp']),
     ('NGP', 'SNK - Neo Geo Pocket Color', ['neogeopocketcolor', 'ngpc']),
     ('TG16', 'NEC - PC Engine - TurboGrafx 16', ['pcengine', 'turbografx16', 'pcenginetg16']),
+    ('NDS', 'Nintendo - Nintendo DS', ['nds', 'nintendods']),
     # slot's own art set already covers these three; they are here for a run that asks for them.
     ('GBA', 'Nintendo - Game Boy Advance', ['gameboyadvance', 'gba']),
     ('GB', 'Nintendo - Game Boy', ['gameboy', 'gb']),
     ('GBC', 'Nintendo - Game Boy Color', ['gameboycolor', 'gbc']),
 ]
-DEFAULT_FOLDERS = ('WS', 'Lynx', 'GG', 'NGP', 'TG16')
+DEFAULT_FOLDERS = ('WS', 'Lynx', 'GG', 'NGP', 'TG16', 'NDS')
 
 MEDIA = ('support-texture', 'wheel')
 # A label is shown a couple of hundred pixels wide; this keeps detail for a 2x export without

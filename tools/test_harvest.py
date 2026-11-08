@@ -28,6 +28,8 @@ LISTED = [
     {'id': '82', 'noms': {'nom_eu': 'Neo-Geo Pocket Color', 'nom_retropie': 'ngpc'}},
     {'id': '31', 'noms': {'nom_eu': 'PC Engine', 'nom_us': 'TurboGrafx-16', 'nom_retropie': 'pcengine'}},
     {'id': '114', 'noms': {'nom_eu': 'PC Engine CD-Rom', 'nom_us': 'TurboGrafx-CD'}},
+    {'id': '15', 'noms': {'nom_eu': 'Nintendo DS', 'nom_retropie': 'nds'}},
+    {'id': '106', 'noms': {'nom_eu': 'Nintendo DSi'}},
 ]
 
 
@@ -37,7 +39,7 @@ class ResolveIds(unittest.TestCase):
         self.assertEqual(ids, {
             'Bandai - WonderSwan': 45, 'Bandai - WonderSwan Color': 46, 'Atari - Lynx': 28,
             'Sega - Game Gear': 21, 'SNK - Neo Geo Pocket': 25, 'SNK - Neo Geo Pocket Color': 82,
-            'NEC - PC Engine - TurboGrafx 16': 31,
+            'NEC - PC Engine - TurboGrafx 16': 31, 'Nintendo - Nintendo DS': 15,
         })
 
     def test_a_system_with_no_matching_name_stops_the_run(self):

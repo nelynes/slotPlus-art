@@ -14,7 +14,7 @@ on:
     inputs:
       systems:
         description: Card folders to harvest, comma separated
-        default: WS,Lynx,GG,NGP,TG16
+        default: WS,Lynx,GG,NGP,TG16,NDS
       limit:
         description: Stop after this many api calls (blank for today's share of the quota)
         default: ''
@@ -51,7 +51,7 @@ jobs:
           SS_DEVPASSWORD: ${{ secrets.SS_DEVPASSWORD }}
           SS_SSID: ${{ secrets.SS_SSID }}
           SS_SSPASSWORD: ${{ secrets.SS_SSPASSWORD }}
-          SYSTEMS: ${{ inputs.systems || 'WS,Lynx,GG,NGP,TG16' }}
+          SYSTEMS: ${{ inputs.systems || 'WS,Lynx,GG,NGP,TG16,NDS' }}
           LIMIT: ${{ inputs.limit }}
         run: |
           set -eu
