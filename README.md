@@ -1,6 +1,7 @@
 # slotPlus art
 
-Cart labels and logos for [Cart Studio+](https://nelynes.github.io/slotPlus-studio/), hosted at
+Cart labels and logos for [Cart Studio+](https://nelynes.github.io/slotPlus-studio/) and
+[EverFront](https://github.com/nelynes/everfront)'s Label Maker, hosted at
 [nelynes.github.io/slotPlus-art](https://nelynes.github.io/slotPlus-art/). Cart Studio+ looks here
 first, before slot's art set and libretro, so anything in this set is what a cart wears by default.
 
@@ -12,7 +13,9 @@ The set is laid out the way slot's own art set is:
 - `index.json`: each rom checksum, upper case hex, with the files the set has for it.
 
 `<platform>` is the card folder slotPlus files the game under: `GBA`, `GB`, `GBC`, `WS`, `Lynx`,
-`GG`, `NGP`, `TG16` or `NDS`. A file is named by checksum rather than by game, so it reaches every
+`GG`, `NGP`, `TG16` or `NDS`, plus `NES` and `SMS` (Master System) for EverFront. An NES game is
+filed under the checksum of its dump with the 16-byte iNES header, as roms are kept on a card. A
+file is named by checksum rather than by game, so it reaches every
 copy of the game, whatever the rom is called on someone's card.
 
 ## Adding art
@@ -31,8 +34,8 @@ Pillow.
 
 Once a day the harvest workflow runs `tools/harvest.py`, which asks
 [ScreenScraper](https://www.screenscraper.fr/) for the label and logo of every dump libretro's
-No-Intro databases list for the WonderSwan, Lynx, Game Gear, NeoGeo Pocket, TurboGrafx-16 and
-Nintendo DS. It spends a share of the day's quota, commits what it found and publishes the set; the
+No-Intro databases list for the WonderSwan, Lynx, Game Gear, NeoGeo Pocket, TurboGrafx-16, NES,
+Master System and Nintendo DS. It spends a share of the day's quota, commits what it found and publishes the set; the
 next day's run carries on. Art already in the set is never replaced, and a dump ScreenScraper has nothing for is
 asked about again a month later. Scans are shrunk to 600 pixels on their longest side.
 

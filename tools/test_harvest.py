@@ -30,6 +30,9 @@ LISTED = [
     {'id': '114', 'noms': {'nom_eu': 'PC Engine CD-Rom', 'nom_us': 'TurboGrafx-CD'}},
     {'id': '15', 'noms': {'nom_eu': 'Nintendo DS', 'nom_retropie': 'nds'}},
     {'id': '106', 'noms': {'nom_eu': 'Nintendo DSi'}},
+    {'id': '3', 'noms': {'nom_eu': 'NES', 'nom_jp': 'Famicom', 'nom_retropie': 'nes'}},
+    {'id': '107', 'noms': {'nom_eu': 'Famicom Disk System', 'nom_retropie': 'fds'}},
+    {'id': '2', 'noms': {'nom_eu': 'Master System', 'nom_jp': 'Mark III', 'nom_retropie': 'mastersystem'}},
 ]
 
 
@@ -40,6 +43,7 @@ class ResolveIds(unittest.TestCase):
             'Bandai - WonderSwan': 45, 'Bandai - WonderSwan Color': 46, 'Atari - Lynx': 28,
             'Sega - Game Gear': 21, 'SNK - Neo Geo Pocket': 25, 'SNK - Neo Geo Pocket Color': 82,
             'NEC - PC Engine - TurboGrafx 16': 31, 'Nintendo - Nintendo DS': 15,
+            'Nintendo - Nintendo Entertainment System': 3, 'Sega - Master System - Mark III': 2,
         })
 
     def test_a_system_with_no_matching_name_stops_the_run(self):
@@ -64,6 +68,19 @@ game (
 )
 '''
         self.assertEqual(harvest.parse_dat(text), {'006FD398': ('Klax (World)', 'Klax (World).lnx', 131136)})
+
+    def test_a_headerless_nes_dump_is_left_out(self):
+        text = '''game (
+\tname "Super Mario Bros. (World)"
+\trom ( name "Super Mario Bros. (World).nes" size 40976 crc 393A432F md5 00 sha1 00 )
+)
+game (
+\tname "Super Mario Bros. (World)"
+\trom ( name "Super Mario Bros. (World).unh" size 40960 crc D445F698 md5 00 sha1 00 )
+)
+'''
+        self.assertEqual(harvest.parse_dat(text),
+                         {'393A432F': ('Super Mario Bros. (World)', 'Super Mario Bros. (World).nes', 40976)})
 
 
 class TodoFor(unittest.TestCase):

@@ -42,6 +42,8 @@ DATABASES = {
     'NGP': ['SNK - Neo Geo Pocket', 'SNK - Neo Geo Pocket Color'],
     'TG16': ['NEC - PC Engine - TurboGrafx 16'],
     'NDS': ['Nintendo - Nintendo DS'],
+    'NES': ['Nintendo - Nintendo Entertainment System'],
+    'SMS': ['Sega - Master System - Mark III'],
 }
 
 

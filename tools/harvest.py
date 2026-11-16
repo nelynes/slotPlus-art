@@ -52,13 +52,17 @@ SYSTEMS = [
     ('NGP', 'SNK - Neo Geo Pocket', ['neogeopocket', 'ngp']),
     ('NGP', 'SNK - Neo Geo Pocket Color', ['neogeopocketcolor', 'ngpc']),
     ('TG16', 'NEC - PC Engine - TurboGrafx 16', ['pcengine', 'turbografx16', 'pcenginetg16']),
+    # For EverFront (github.com/nelynes/everfront), which shelves both. Ahead of the DS, whose
+    # 7,500 dumps take weeks of quota, so they aren't queued behind it.
+    ('NES', 'Nintendo - Nintendo Entertainment System', ['nes', 'nintendoentertainmentsystem']),
+    ('SMS', 'Sega - Master System - Mark III', ['mastersystem', 'segamastersystem', 'sms']),
     ('NDS', 'Nintendo - Nintendo DS', ['nds', 'nintendods']),
     # slot's own art set already covers these three; they are here for a run that asks for them.
     ('GBA', 'Nintendo - Game Boy Advance', ['gameboyadvance', 'gba']),
     ('GB', 'Nintendo - Game Boy', ['gameboy', 'gb']),
     ('GBC', 'Nintendo - Game Boy Color', ['gameboycolor', 'gbc']),
 ]
-DEFAULT_FOLDERS = ('WS', 'Lynx', 'GG', 'NGP', 'TG16', 'NDS')
+DEFAULT_FOLDERS = ('WS', 'Lynx', 'GG', 'NGP', 'TG16', 'NES', 'SMS', 'NDS')
 
 MEDIA = ('support-texture', 'wheel')
 # A label is shown a couple of hundred pixels wide; this keeps detail for a 2x export without
@@ -195,12 +199,18 @@ def dat_entries(dat):
 
 
 def parse_dat(text):
-    """CRC32 to (game name, rom file name, rom size) for each single-rom game in a dat."""
+    """CRC32 to (game name, rom file name, rom size) for each single-rom game in a dat.
+
+    The NES database lists each game twice, with its 16-byte iNES header (.nes) and without it
+    (.unh). Only the headered dump is kept, as roms are kept on a card, so a game is asked about
+    once rather than twice."""
     out = {}
     for block in re.finditer(r'game\s*\((.*?)\n\)', text, re.S):
         body = block.group(1)
         name = re.search(r'name\s+"([^"]+)"', body)
         rom = re.search(r'rom\s*\(\s*name\s+"([^"]+)"\s+size\s+(\d+)\s+crc\s+([0-9A-Fa-f]{8})', body)
+        if rom and rom.group(1).lower().endswith('.unh'):
+            continue
         if name and rom:
             out[rom.group(3).upper()] = (name.group(1), rom.group(1), int(rom.group(2)))
     return out
