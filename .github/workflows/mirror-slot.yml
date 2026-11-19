@@ -1,0 +1,66 @@
+name: mirror slot
+
+# Copy slot's art set (art.slot-cfw.fyi) into this one with tools/mirror_slot.py, commit what it
+# added and publish it. slot's host doesn't let Cart Studio+ read it from another origin; a copy here
+# can be read. Art already in this set wins. Runs when the mirror itself changes, once a week to pick
+# up slot's new art, and by hand.
+on:
+  push:
+    branches: [main]
+    paths:
+      - tools/mirror_slot.py
+      - .github/workflows/mirror-slot.yml
+  schedule:
+    - cron: '17 4 * * 0'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+# The harvest commits to main too, so the two never run at once.
+concurrency:
+  group: harvest
+  cancel-in-progress: false
+
+jobs:
+  mirror:
+    if: github.repository == 'nelynes/slotPlus-art'
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Test the mirror
+        run: python -m unittest tools/test_mirror_slot.py
+
+      - name: Mirror
+        run: python tools/mirror_slot.py
+
+      - name: Commit what was added
+        id: commit
+        run: |
+          set -eu
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Nothing new."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          added=$(git diff --cached --name-only --diff-filter=A -- '*.png' | wc -l)
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
+            commit -q -m "Mirror slot's art set: $added images"
+          git pull -q --rebase
+          git push
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      # A push made with this workflow's own token starts no other workflow, so publish by hand.
+      - name: Publish
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --ref main
