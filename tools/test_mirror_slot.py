@@ -64,12 +64,16 @@ class EndToEnd(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             slot, out = Path(tmp, 'slot'), Path(tmp, 'out')
             (slot / 'GB/wheel').mkdir(parents=True)
-            (slot / 'GB/wheel/11111111.png').write_bytes(PNG)
+            from PIL import Image
+
+            Image.new('RGBA', (4, 2), (10, 20, 30, 0)).save(slot / 'GB/wheel/11111111.webp', 'WEBP', lossless=True)
+            (slot / 'GB/wheel/44444444.png').write_bytes(PNG)
             (slot / 'index.json').write_text(
                 json.dumps(
                     {
                         '11111111': {'wheel': 'GB/wheel/11111111.png'},
                         '22222222': {'wheel': 'GB/wheel/22222222.png'},
+                        '44444444': {'wheel': 'GB/wheel/44444444.png'},
                     }
                 )
             )
@@ -89,14 +93,40 @@ class EndToEnd(unittest.TestCase):
                 )
             finally:
                 server.shutdown()
-            self.assertEqual((out / 'GB/wheel/11111111.png').read_bytes(), PNG)
+            with Image.open(out / 'GB/wheel/11111111.png') as im:
+                self.assertEqual((im.format, im.mode, im.size), ('PNG', 'RGBA', (4, 2)))
+            self.assertEqual((out / 'GB/wheel/44444444.png').read_bytes(), PNG)
             self.assertEqual(
                 json.loads((out / 'index.json').read_text()),
                 {
                     '11111111': {'wheel': 'GB/wheel/11111111.png'},
                     '33333333': {'wheel': 'GBA/wheel/33333333.png'},
+                    '44444444': {'wheel': 'GB/wheel/44444444.png'},
                 },
             )
+
+    def test_a_host_serving_nothing_fails_the_run_and_leaves_the_index(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            slot, out = Path(tmp, 'slot'), Path(tmp, 'out')
+            slot.mkdir()
+            (slot / 'index.json').write_text(json.dumps({'11111111': {'wheel': 'GB/wheel/11111111.png'}}))
+            out.mkdir()
+            (out / 'index.json').write_text('{}')
+            handler = functools.partial(http.server.SimpleHTTPRequestHandler, directory=str(slot))
+            handler.log_message = lambda *a: None
+            server = http.server.ThreadingHTTPServer(('127.0.0.1', 0), handler)
+            threading.Thread(target=server.serve_forever, daemon=True).start()
+            try:
+                base = f'http://127.0.0.1:{server.server_address[1]}/'
+                run = subprocess.run(
+                    [sys.executable, str(Path(__file__).parent / 'mirror_slot.py'), '--base', base, '--out', str(out)],
+                    capture_output=True,
+                    env={'NO_PROXY': '*', 'no_proxy': '*'},
+                )
+            finally:
+                server.shutdown()
+            self.assertEqual(run.returncode, 1)
+            self.assertEqual((out / 'index.json').read_text(), '{}')
 
 
 if __name__ == '__main__':

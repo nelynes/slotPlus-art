@@ -6,7 +6,9 @@ access-control-allow-origin header, so Cart Studio+ on nelynes.github.io can't r
 can be. slot's author is fine with it being copied.
 
 Art already in this set wins: a label, logo or look this set has for a key is kept, and only what it
-lacks is filled from slot's. Files are kept at slot's own paths. Box art (`box-3D`) is left out,
+lacks is filled from slot's. Files are kept at slot's own paths. slot's host serves each image as
+a .webp beside the .png path its index names, the way slot fetches it, so the .webp is fetched first
+and saved as the .png this set keeps. Box art (`box-3D`) is left out,
 since nothing that reads this set uses it. slot's named entries, a hack or a GBA Video pak with a
 `crcs` list of every dump, are copied with their names and lists.
 
@@ -15,6 +17,7 @@ since nothing that reads this set uses it. slot's named entries, a hack or a GBA
 
 import argparse
 import concurrent.futures
+import io
 import json
 import sys
 import time
@@ -44,6 +47,27 @@ def fetch(url, tries=4):
             if attempt == tries - 1:
                 raise
         time.sleep(2 ** attempt)
+
+
+def as_png(body):
+    """A fetched image as PNG bytes, or None when it isn't an image: a missing file comes back as
+    an HTML page."""
+    if not body:
+        return None
+    if body.startswith(b'\x89PNG'):
+        return body
+    if not (body[:4] == b'RIFF' and body[8:12] == b'WEBP'):
+        return None
+    from PIL import Image
+
+    try:
+        with Image.open(io.BytesIO(body)) as im:
+            im = im.convert('RGBA' if im.mode in ('RGBA', 'LA', 'P') or 'transparency' in im.info else 'RGB')
+            out = io.BytesIO()
+            im.save(out, 'PNG', optimize=True)
+            return out.getvalue()
+    except OSError:
+        return None
 
 
 def safe(path):
@@ -98,8 +122,8 @@ def main():
     print(f'slot has {len(theirs)} entries; filling {len(wanted)} files, {len(missing)} to fetch')
 
     def one(path):
-        body = fetch(args.base + path)
-        if body is None or not body.startswith(b'\x89PNG'):
+        body = as_png(fetch(args.base + path[: -len('.png')] + '.webp')) or as_png(fetch(args.base + path))
+        if body is None:
             return path, False
         dest = args.out / path
         dest.parent.mkdir(parents=True, exist_ok=True)
@@ -109,7 +133,9 @@ def main():
         return path, True
 
     with concurrent.futures.ThreadPoolExecutor(8) as pool:
+        failed = 0
         for n, (path, ok) in enumerate(pool.map(one, missing), 1):
+            failed += not ok
             if n % 1000 == 0:
                 print(f'  {n}/{len(missing)}')
 
@@ -124,6 +150,11 @@ def main():
         if key not in ours and not any(m in merged[key] for m in MEDIA):
             del merged[key]
 
+    # Nothing at all fetched means slot's host has moved its files again, not that it lacks them all.
+    if missing and failed == len(missing):
+        print(f'::error::none of the {len(missing)} files could be fetched from {args.base}')
+        return 1
+    print(f'::notice::{len(missing) - failed} of {len(missing)} files fetched from slot\'s set')
     index_path.write_text(json.dumps(dict(sorted(merged.items())), indent=1, ensure_ascii=False) + '\n')
     print(f'{kept} of {len(wanted)} files now in the set')
     return 0
