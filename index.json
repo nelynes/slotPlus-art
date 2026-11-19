@@ -1186,7 +1186,13 @@
   "wheel": "NDS/wheel/05E2314D.png"
  },
  "05E80ECC": {
-  "support-texture": "GBA/support-texture/05E80ECC.png"
+  "support-texture": "GBA/support-texture/05E80ECC.png",
+  "look": {
+   "band": null,
+   "by": "analysis",
+   "ground": "fafcfb",
+   "sure": true
+  }
  },
  "05EA5353": {
   "support-texture": "SMS/support-texture/05EA5353.png",
@@ -14075,7 +14081,13 @@
   "wheel": "NDS/wheel/4B3BCD26.png"
  },
  "4B3D4957": {
-  "support-texture": "GBA/support-texture/4B3D4957.png"
+  "support-texture": "GBA/support-texture/4B3D4957.png",
+  "look": {
+   "band": null,
+   "by": "analysis",
+   "ground": "381492",
+   "sure": true
+  }
  },
  "4B3E6450": {
   "support-texture": "NDS/support-texture/4B3E6450.png",
@@ -16903,7 +16915,13 @@
   "wheel": "NDS/wheel/59C8EB93.png"
  },
  "59CBE914": {
-  "support-texture": "GBA/support-texture/59CBE914.png"
+  "support-texture": "GBA/support-texture/59CBE914.png",
+  "look": {
+   "band": null,
+   "by": "analysis",
+   "ground": "dde4eb",
+   "sure": true
+  }
  },
  "59D07314": {
   "support-texture": "TG16/support-texture/59D07314.png",
@@ -17222,7 +17240,13 @@
   "wheel": "SMS/wheel/5B8E65E4.png"
  },
  "5B925FC9": {
-  "support-texture": "GBA/support-texture/5B925FC9.png"
+  "support-texture": "GBA/support-texture/5B925FC9.png",
+  "look": {
+   "band": null,
+   "by": "analysis",
+   "ground": "e4e4de",
+   "sure": true
+  }
  },
  "5B92BB48": {
   "support-texture": "NDS/support-texture/5B92BB48.png",
@@ -24148,7 +24172,13 @@
   "wheel": "NES/wheel/80F6AAD9.png"
  },
  "8103428D": {
-  "support-texture": "GBA/support-texture/8103428D.png"
+  "support-texture": "GBA/support-texture/8103428D.png",
+  "look": {
+   "band": null,
+   "by": "analysis",
+   "ground": "010101",
+   "sure": true
+  }
  },
  "810AFFC8": {
   "support-texture": "NDS/support-texture/810AFFC8.png",
@@ -25918,7 +25948,13 @@
   "support-texture": "NDS/support-texture/8A7F2F28.png"
  },
  "8A850DA7": {
-  "support-texture": "GBA/support-texture/05E80ECC.png"
+  "support-texture": "GBA/support-texture/05E80ECC.png",
+  "look": {
+   "band": null,
+   "by": "analysis",
+   "ground": "fafcfb",
+   "sure": true
+  }
  },
  "8A88C50F": {
   "support-texture": "NGP/support-texture/8A88C50F.png",
@@ -28712,7 +28748,13 @@
   "wheel": "NES/wheel/98F7FE0D.png"
  },
  "98FBBD9A": {
-  "support-texture": "GBA/support-texture/59CBE914.png"
+  "support-texture": "GBA/support-texture/59CBE914.png",
+  "look": {
+   "band": null,
+   "by": "analysis",
+   "ground": "dde4eb",
+   "sure": true
+  }
  },
  "98FECBF3": {
   "wheel": "NDS/wheel/98FECBF3.png"
@@ -33829,7 +33871,13 @@
   "wheel": "SMS/wheel/B519E833.png"
  },
  "B51B710E": {
-  "support-texture": "GBA/support-texture/59CBE914.png"
+  "support-texture": "GBA/support-texture/59CBE914.png",
+  "look": {
+   "band": null,
+   "by": "analysis",
+   "ground": "dde4eb",
+   "sure": true
+  }
  },
  "B51C3EBA": {
   "support-texture": "NGP/support-texture/B51C3EBA.png",
@@ -35052,7 +35100,13 @@
   "wheel": "GG/wheel/BAF4369D.png"
  },
  "BAF7FFD2": {
-  "support-texture": "GBA/support-texture/BAF7FFD2.png"
+  "support-texture": "GBA/support-texture/BAF7FFD2.png",
+  "look": {
+   "band": null,
+   "by": "analysis",
+   "ground": "dedba8",
+   "sure": false
+  }
  },
  "BB05D9E2": {
   "support-texture": "NDS/support-texture/BB05D9E2.png"
@@ -36368,7 +36422,13 @@
   "wheel": "NES/wheel/C18F5C1D.png"
  },
  "C18F82CB": {
-  "support-texture": "GBC/support-texture/C18F82CB.png"
+  "support-texture": "GBC/support-texture/C18F82CB.png",
+  "look": {
+   "band": null,
+   "by": "analysis",
+   "ground": "81bec8",
+   "sure": false
+  }
  },
  "C19430CE": {
   "support-texture": "SMS/support-texture/C19430CE.png",
@@ -37797,7 +37857,13 @@
   "wheel": "NDS/wheel/C97C2AE8.png"
  },
  "C97E574B": {
-  "support-texture": "GBC/support-texture/C97E574B.png"
+  "support-texture": "GBC/support-texture/C97E574B.png",
+  "look": {
+   "band": null,
+   "by": "analysis",
+   "ground": "bbc1d3",
+   "sure": true
+  }
  },
  "C97F2508": {
   "support-texture": "NDS/support-texture/C97F2508.png",
@@ -40810,7 +40876,13 @@
   "wheel": "NES/wheel/D9F92DFF.png"
  },
  "DA0224E3": {
-  "support-texture": "GB/support-texture/DA0224E3.png"
+  "support-texture": "GB/support-texture/DA0224E3.png",
+  "look": {
+   "band": null,
+   "by": "analysis",
+   "ground": "fde702",
+   "sure": true
+  }
  },
  "DA127672": {
   "support-texture": "NES/support-texture/DA127672.png",
