@@ -43,21 +43,43 @@ jobs:
       - name: Mirror
         run: python tools/mirror_slot.py
 
+      # A first copy is some 14,000 images, too much for one push, so the images go up a
+      # thousand at a time and the index, which names them, last.
       - name: Commit what was added
         id: commit
         run: |
           set -eu
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          push() {
+            for attempt in 1 2 3; do
+              if out=$(git push 2>&1); then return 0; fi
+              echo "::warning::push $attempt failed: $(printf '%s' "$out" | tail -n 4 | tr '\n' ' ')"
+              sleep 15
+            done
+            echo "::error::could not push to main"
+            return 1
+          }
+          git ls-files --others --exclude-standard -- '*.png' > "$RUNNER_TEMP/new.txt"
+          added=$(wc -l < "$RUNNER_TEMP/new.txt")
+          split -l 1000 "$RUNNER_TEMP/new.txt" "$RUNNER_TEMP/batch."
+          for batch in "$RUNNER_TEMP"/batch.*; do
+            [ -s "$batch" ] || continue
+            xargs -a "$batch" -d '\n' git add --
+            git commit -q -m "Mirror slot's art set: $(wc -l < "$batch") images"
+            push
+          done
           git add -A
-          if git diff --cached --quiet; then
+          if git diff --cached --quiet && [ "$added" -eq 0 ]; then
             echo "Nothing new."
             echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          added=$(git diff --cached --name-only --diff-filter=A -- '*.png' | wc -l)
-          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
-            commit -q -m "Mirror slot's art set: $added images"
-          git pull -q --rebase
-          git push
+          if ! git diff --cached --quiet; then
+            git commit -q -m "Mirror slot's art set: index, $added images"
+            push
+          fi
+          echo "::notice::$added images committed"
           echo "changed=true" >> "$GITHUB_OUTPUT"
 
       # A push made with this workflow's own token starts no other workflow, so publish by hand.
