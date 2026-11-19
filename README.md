@@ -30,6 +30,16 @@ it, and `--crc` files it under a checksum directly. An image with transparency i
 logo, an opaque one as a whole label; `--logo` or `--label` overrides that. It needs Python 3 with
 Pillow.
 
+## From slot
+
+The mirror workflow runs `tools/mirror_slot.py`, which copies [slot](https://slot-cfw.fyi)'s own art
+set from art.slot-cfw.fyi: its Game Boy, Game Boy Color and Game Boy Advance labels and logos, the
+colours it read for them, and its named entries for hacks and GBA Video paks, which list the
+checksum of every dump they cover. slot's host doesn't let a page on another site read it, so Cart
+Studio+ reads this copy instead. It is copied with slot's author's blessing. Art already in this
+set is never replaced, box art is left out, and the workflow runs again each week for slot's new
+art.
+
 ## From ScreenScraper
 
 Once a day the harvest workflow runs `tools/harvest.py`, which asks
